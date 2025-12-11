@@ -1,5 +1,5 @@
 use rand::Rng;
-use crate::config::{LUNG_MSG, POL_X, POL_Z};
+use crate::config::{lung_msg, POL_X, POL_Z};
 use crate::public_channel::PublicChannel;
 use crate::quantum_channel::QuantumChannel;
 
@@ -15,7 +15,7 @@ pub struct Writer {
 impl Writer {
     pub fn new() -> Self {
         Self {
-            messaggio_quantistico: Vec::with_capacity(LUNG_MSG),
+            messaggio_quantistico: Vec::with_capacity(lung_msg()),
             chiave_grezza: Vec::new(),
             chiave_simmetrica: Vec::new(),
             test_avversario: Vec::new(),
@@ -26,7 +26,7 @@ impl Writer {
     pub fn inizializzazione(&mut self) {
         println!("[Scrittore]: Inizializzazione e scelta messaggio quantistico");
         let mut rng = rand::thread_rng();
-        for _ in 0..LUNG_MSG {
+        for _ in 0..lung_msg() {
             let pol = if rng.gen_bool(0.5) { POL_Z } else { POL_X };
             let val = rng.gen_range(0..=1);
             self.messaggio_quantistico.push((pol, val));

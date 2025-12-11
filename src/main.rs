@@ -5,7 +5,7 @@ mod writer;
 mod reader;
 mod adversary;
 
-use config::{LUNG_MSG, ATTIVA_AVVERSARIO};
+use crate::config::{lung_msg, attiva_avversario};
 use public_channel::PublicChannel;
 use quantum_channel::QuantumChannel;
 use writer::Writer;
@@ -24,7 +24,7 @@ fn main() {
     scrittore.inizializzazione();
 
     // 2) Trasmissione sequenziale di LUNG_MSG fotoni sul canale quantistico
-    for i in 0..LUNG_MSG {
+    for i in 0..lung_msg() {
         // Scrittore spedisce il fotone i e attiva Fotone_IN
         scrittore.scrivi_su_canale_quantistico(&mut canale_quantistico, i);
 
@@ -46,7 +46,7 @@ fn main() {
     }
 
     // 3) Segnalazioni post-lettura
-    if ATTIVA_AVVERSARIO {
+    if attiva_avversario() {
         println!("[Avversario]: Lettura completata");
     }
 
@@ -83,7 +83,7 @@ fn main() {
 
 /// Stampa tabellare: sequenza fotoni, chiavi finali, statistiche
 fn stampa_tabelle(scr: &Writer, lettr: &Reader, avv: &Adversary) {
-    use crate::config::ATTIVA_AVVERSARIO;
+    use crate::config::attiva_avversario;
 
     println!("
 === Sequenza fotoni ===");
@@ -91,7 +91,7 @@ fn stampa_tabelle(scr: &Writer, lettr: &Reader, avv: &Adversary) {
     println!("{}", "-".repeat(75));
     for i in 0..scr.messaggio_quantistico.len() {
         let (pol_s, val_s) = scr.messaggio_quantistico[i];
-        let (pol_a, val_a) = if ATTIVA_AVVERSARIO {
+        let (pol_a, val_a) = if attiva_avversario() {
             avv.avversario_messaggio_quantistico_ricevuto.get(i).cloned().unwrap_or((' ', 0))
         } else { ('-', 0) };
         let (pol_l, val_l) = lettr.messaggio_quantistico_ricevuto[i];
@@ -99,7 +99,7 @@ fn stampa_tabelle(scr: &Writer, lettr: &Reader, avv: &Adversary) {
             "{:<6} | {:<20} | {:<20} | {:<20}",
             i,
             format!("({}, {})", pol_s, val_s),
-            if ATTIVA_AVVERSARIO { format!("({}, {})", pol_a, val_a) } else { "-".to_string() },
+            if attiva_avversario() { format!("({}, {})", pol_a, val_a) } else { "-".to_string() },
             format!("({}, {})", pol_l, val_l)
         );
     }

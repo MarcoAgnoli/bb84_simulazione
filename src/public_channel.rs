@@ -1,4 +1,4 @@
-use crate::config::LUNG_MSG;
+use crate::config::lung_msg;
 
 /// Canale Pubblico
 /// Gestisce vettori condivisi e variabili booleane come da specifica.
@@ -24,8 +24,8 @@ impl PublicChannel {
     /// Inizializzazione del canale pubblico
     pub fn new() -> Self {
         Self {
-            canale_pubblico: vec![' '; LUNG_MSG],
-            sequenza_ricezione: vec![false; LUNG_MSG],
+            canale_pubblico: vec![' '; lung_msg()],
+            sequenza_ricezione: vec![false; lung_msg()],
             test_avversario: Vec::new(),
             pubblicazione_pronta: false,
             fine_lettura: false,
@@ -38,7 +38,7 @@ impl PublicChannel {
 
     /// Pubblicazione polarizzazione dei fotoni trasmessi (scrittore -> canale)
     pub fn pubblica_polarizzazioni(&mut self, polarizzazioni: Vec<char>) {
-        assert_eq!(polarizzazioni.len(), LUNG_MSG);
+        assert_eq!(polarizzazioni.len(), lung_msg());
         self.canale_pubblico = polarizzazioni;
         self.pubblicazione_pronta = true;
     }
@@ -56,7 +56,7 @@ impl PublicChannel {
 
     /// Spedizione sequenza ricezione fotoni (lettore -> scrittore)
     pub fn invia_sequenza_ricezione(&mut self, esito: Vec<bool>) {
-        assert_eq!(esito.len(), LUNG_MSG);
+        assert_eq!(esito.len(), lung_msg());
         self.sequenza_ricezione = esito;
         self.sequenza_polarizzazioni_pronta = true;
     }

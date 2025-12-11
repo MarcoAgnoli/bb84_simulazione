@@ -1,4 +1,4 @@
-use crate::config::LUNG_MSG;
+use crate::config::lung_msg;
 use crate::public_channel::PublicChannel;
 
 /// Lettore
@@ -14,8 +14,8 @@ pub struct Reader {
 impl Reader {
     pub fn new() -> Self {
         Self {
-            messaggio_quantistico_ricevuto: Vec::with_capacity(LUNG_MSG),
-            esito_letture: vec![false; LUNG_MSG],
+            messaggio_quantistico_ricevuto: Vec::with_capacity(lung_msg()),
+            esito_letture: vec![false; lung_msg()],
             chiave_grezza: Vec::new(),
             chiave_simmetrica: Vec::new(),
             test_avversario: Vec::new(),
@@ -42,7 +42,7 @@ impl Reader {
 
         // Costruisce chiave grezza (valori con polarizzazione allineata)
         self.chiave_grezza.clear();
-        for i in 0..LUNG_MSG {
+        for i in 0..lung_msg() {
             if self.esito_letture[i] {
                 let (_, val) = self.messaggio_quantistico_ricevuto[i];
                 self.chiave_grezza.push(val);
