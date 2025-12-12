@@ -52,7 +52,7 @@ fn main() {
 
     // Il lettore segnala fine lettura
     lettore.segnala_fine_lettura(&mut canale_pubblico);
-    println!("[Lettore]: Lettura terminata");
+    println!("[Lettore]: Lettura completata");
 
     // 4) Lo scrittore pubblica le polarizzazioni utilizzate
     scrittore.pubblicazione_polarizzazione(&mut canale_pubblico);
@@ -87,8 +87,8 @@ fn stampa_tabelle(scr: &Writer, lettr: &Reader, avv: &Adversary) {
 
     println!("
 === Sequenza fotoni ===");
-    println!("{:<6} | {:<20} | {:<20} | {:<20}", "Index", "Scrittore (pol,val)", "Avversario (pol,val)", "Lettore (pol,val)");
-    println!("{}", "-".repeat(75));
+    println!("{:<6} | {:<10} | {:<10} | {:<10}", "#", "Scrittore", "Avversario", "Lettore");
+    println!("{}", "-".repeat(50));
     for i in 0..scr.messaggio_quantistico.len() {
         let (pol_s, val_s) = scr.messaggio_quantistico[i];
         let (pol_a, val_a) = if attiva_avversario() {
@@ -96,7 +96,7 @@ fn stampa_tabelle(scr: &Writer, lettr: &Reader, avv: &Adversary) {
         } else { ('-', 0) };
         let (pol_l, val_l) = lettr.messaggio_quantistico_ricevuto[i];
         println!(
-            "{:<6} | {:<20} | {:<20} | {:<20}",
+            "{:<6} | {:<10} | {:<10} | {:<10}",
             i,
             format!("({}, {})", pol_s, val_s),
             if attiva_avversario() { format!("({}, {})", pol_a, val_a) } else { "-".to_string() },
