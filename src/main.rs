@@ -114,7 +114,7 @@ fn stampa_tabelle(scr: &Writer, lettr: &Reader, avv: &Adversary) {
     let tot_fotoni = scr.messaggio_quantistico.len();
     let scartati_diff_polarizzazioni = lettr.esito_letture.iter().filter(|&&b| !b).count();
     let selezionati_iniziali = lettr.esito_letture.iter().filter(|&&b| b).count();
-    let test_bits = if lettr.chiave_grezza.len() > 0 { ((lettr.chiave_grezza.len() - 1) / 8) + 1 } else { 0 };
+    let test_bits = if !lettr.chiave_grezza.is_empty() { ((lettr.chiave_grezza.len() - 1) / 8) + 1 } else { 0 };
     let lung_chiave_finale = scr.chiave_simmetrica.len();
     
     // Calcola valori identici quando polarizzazione è uguale
