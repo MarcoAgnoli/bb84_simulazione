@@ -2,6 +2,8 @@
 
 This application simulates the exchange of symmetric keys using the **BB84** protocol according to the provided specifications (no concurrency; the attacker, if enabled, reads **before** the reader). It is written in **Rust**, with one file per object and a `main`. Extensive comments and verbose code.
 
+Please note the code has been produced by writing a spec document - that you can find here - and asking Microsoft Copilot to generate most of the code.
+
 ## Requirements
 - Rust (recommended toolchain: stable)
 - Cargo
