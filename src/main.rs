@@ -134,7 +134,7 @@ fn stampa_tabelle(scr: &Writer, lettr: &Reader, avv: &Adversary) {
     println!("Fotoni totali (iniziali)              : {:>3} ({:>5.1}%)", tot_fotoni, perc(tot_fotoni, tot_fotoni));
     println!("Valori scartati per differenza pol.   : {:>3} ({:>5.1}%)", scartati_diff_polarizzazioni, perc(scartati_diff_polarizzazioni, tot_fotoni));
     println!("Valori selezionati inizialmente chiave: {:>3} ({:>5.1}%)", selezionati_iniziali, perc(selezionati_iniziali, tot_fotoni));
-    println!("% valori identici stessa polarizzaz. : {:>3} ({:>5.1}%)", valori_identici_stessa_pol, perc(valori_identici_stessa_pol, selezionati_iniziali));
+    println!("% valori identici stessa polarizzaz.  : {:>3} ({:>5.1}%)", valori_identici_stessa_pol, perc(valori_identici_stessa_pol, selezionati_iniziali));
     println!("Valori scartati per test avversario   : {:>3} ({:>5.1}%)", test_bits, perc(test_bits, tot_fotoni));
     println!("Lunghezza chiave finale               : {:>3} ({:>5.1}%)", lung_chiave_finale, perc(lung_chiave_finale, tot_fotoni));
 }
