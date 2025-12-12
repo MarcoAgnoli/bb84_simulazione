@@ -84,6 +84,16 @@ impl Writer {
             }
             if errore || self.test_avversario.len() != test_lettore.len() {
                 println!("[Scrittore]: Test presenza avversario positivo. Chiave scartata");
+                // Scrive sul terminale quanti bit sono stati confrontati e quanti sono risultati errati
+                let mut errori_count = 0;
+                let n = self.test_avversario.len().min(test_lettore.len());
+                for i in 0..n {
+                    if self.test_avversario[i] != test_lettore[i] { errori_count += 1; }
+                }
+                if self.test_avversario.len() != test_lettore.len() {
+                    errori_count += (self.test_avversario.len() as isize - test_lettore.len() as isize).abs() as usize;
+                }
+                println!("[Scrittore]: Test confrontato su {} bit, con {} errori", n, errori_count);    
                 // Processo terminato senza chiave valida
                 p.processo_terminato();
             } else {

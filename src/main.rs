@@ -116,12 +116,25 @@ fn stampa_tabelle(scr: &Writer, lettr: &Reader, avv: &Adversary) {
     let selezionati_iniziali = lettr.esito_letture.iter().filter(|&&b| b).count();
     let test_bits = if lettr.chiave_grezza.len() > 0 { ((lettr.chiave_grezza.len() - 1) / 8) + 1 } else { 0 };
     let lung_chiave_finale = scr.chiave_simmetrica.len();
+    
+    // Calcola valori identici quando polarizzazione è uguale
+    let mut valori_identici_stessa_pol = 0;
+    for i in 0..scr.messaggio_quantistico.len() {
+        if lettr.esito_letture[i] {  // polarizzazione uguale
+            let (_, val_s) = scr.messaggio_quantistico[i];
+            let (_, val_l) = lettr.messaggio_quantistico_ricevuto[i];
+            if val_s == val_l {  // valore uguale
+                valori_identici_stessa_pol += 1;
+            }
+        }
+    }
 
     fn perc(x: usize, tot: usize) -> f64 { if tot == 0 { 0.0 } else { (x as f64) * 100.0 / (tot as f64) } }
 
     println!("Fotoni totali (iniziali)              : {:>3} ({:>5.1}%)", tot_fotoni, perc(tot_fotoni, tot_fotoni));
     println!("Valori scartati per differenza pol.   : {:>3} ({:>5.1}%)", scartati_diff_polarizzazioni, perc(scartati_diff_polarizzazioni, tot_fotoni));
     println!("Valori selezionati inizialmente chiave: {:>3} ({:>5.1}%)", selezionati_iniziali, perc(selezionati_iniziali, tot_fotoni));
+    println!("% valori identici stessa polarizzaz. : {:>3} ({:>5.1}%)", valori_identici_stessa_pol, perc(valori_identici_stessa_pol, selezionati_iniziali));
     println!("Valori scartati per test avversario   : {:>3} ({:>5.1}%)", test_bits, perc(test_bits, tot_fotoni));
     println!("Lunghezza chiave finale               : {:>3} ({:>5.1}%)", lung_chiave_finale, perc(lung_chiave_finale, tot_fotoni));
 }
